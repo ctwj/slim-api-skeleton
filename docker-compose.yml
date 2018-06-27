@@ -1,0 +1,32 @@
+version: '2'
+
+volumes:
+    logs:
+        driver: local
+
+services:
+    slim:
+        image: php:7-alpine
+        container_name: slim_api
+        working_dir: /var/www
+        command: php -S 0.0.0.0:8080 -t public
+        environment:
+            docker: "true"
+        ports:
+            - 8080:8080
+        volumes:
+            - .:/var/www
+            - logs:/var/www/logs
+    mysql:
+        image: mysql
+        container_name: slim_db
+        volumes:
+            - ./data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+            - MYSQL_USER=slim
+            - MYSQL_PASSWORD=123456
+        ports:
+            - "3306:3306"
+        expose:
+            - "3306"

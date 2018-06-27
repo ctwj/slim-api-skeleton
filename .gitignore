@@ -2,3 +2,4 @@
 vendor/
 .vagrant/
 .phplint-cache
+data/

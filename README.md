@@ -11,24 +11,24 @@ Install the latest version using [composer](https://getcomposer.org/).
 
 ``` bash
 $ composer create-project --no-interaction --stability=dev tuupola/slim-api-skeleton app
-```
-
-## Usage
-
-If you have [Vagrant](https://www.vagrantup.com/) installed start the virtual machine.
-
-``` bash
 $ cd app
-$ vagrant up
+$ make deps
+$ docker-compose up
 ```
 
-Now you can access the api at [https://192.168.50.52/todos](https://192.168.50.52/todos)
+After docker container is up, Init Database
+
+```
+$ make inst
+```
+
+Now you can access the api at [http://127.0.0.1:8080/todos](http://127.0.0.1:8080/todos)
 
 
 ### Get a token
 
 ```
-$ curl "https://192.168.50.52/token" \
+$ curl "http://127.0.0.1:8080/token" \
     --request POST \
     --include \
     --insecure \
@@ -48,7 +48,7 @@ Content-Type: application/json
 ### Create a new todo
 
 ```
-$ curl "https://192.168.50.52/todos" \
+$ curl "http://127.0.0.1:8080/todos" \
     --request POST \
     --include \
     --insecure \
@@ -78,7 +78,7 @@ Content-Type: application/json
 ### Get an existing todo
 
 ```
-$ curl "https://192.168.50.52/todos/12Cf2ZjVvyu3A" \
+$ curl "http://127.0.0.1:8080/todos/12Cf2ZjVvyu3A" \
     --include \
     --insecure \
     --header "Authorization: Bearer $TOKEN"
@@ -104,7 +104,7 @@ Content-Type: application/json
 ### Update part of an existing todo
 
 ```
-$ curl "https://192.168.50.52/todos/12Cf2ZjVvyu3A" \
+$ curl "http://127.0.0.1:8080/todos/12Cf2ZjVvyu3A" \
     --request PATCH \
     --include \
     --insecure \
@@ -134,7 +134,7 @@ Content-Type: application/json
 ### Fully update an existing todo
 
 ```
-$ curl "https://192.168.50.52/todos/12Cf2ZjVvyu3A" \
+$ curl "http://127.0.0.1:8080/todos/12Cf2ZjVvyu3A" \
     --request PUT \
     --include \
     --insecure \
@@ -164,7 +164,7 @@ Content-Type: application/json
 ### Delete an existing todo
 
 ```
-$ curl "https://192.168.50.52/todos/12Cf2ZjVvyu3A" \
+$ curl "http://127.0.0.1:8080/todos/12Cf2ZjVvyu3A" \
     --request DELETE \
     --include \
     --insecure \

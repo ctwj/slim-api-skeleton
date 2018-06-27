@@ -9,6 +9,8 @@ help:
 	@echo "    watch  Run linter and unit tests when any of the source files change"
 	@echo "    deps   Install dependencies"
 	@echo "    all    Install dependencies and run linter and unit tests"
+	@echo "    start  Start Docker"
+	@echo "    inst   Install Database, Need Start First"
 	@echo ""
 
 deps:
@@ -29,5 +31,17 @@ test: lint unit
 travis: lint unit
 
 all: deps test
+
+start: 
+	docker-compose up -d
+
+inst:
+	docker exec -it slim_db mysql -uroot -p123456 -D mysql -e "create database production_db default charset utf8;"
+	docker exec -it slim_db mysql -uroot -p123456 -D mysql -e "create database development_db default charset utf8;"
+	docker exec -it slim_db mysql -uroot -p123456 -D mysql -e "create database testing_db default charset utf8;"
+	vendor/bin/phinx migrate
+	vendor/bin/phinx seed:run
+
+    
 
 .PHONY: help deps lint test watch all

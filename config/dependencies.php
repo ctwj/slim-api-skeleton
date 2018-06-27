@@ -102,6 +102,7 @@ $container["todoRepository"] = function ($container) {
         "username" => getenv("DB_USER"),
         "password" => getenv("DB_PASSWORD"),
         "hostname" => getenv("DB_HOST"),
+        "port"     => getenv("DB_PORT"),
         "charset" => "utf8",
     ]);
 };
