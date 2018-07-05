@@ -28,6 +28,15 @@ class Todo extends AbstractMigration
      */
     public function change()
     {
+        $user = $this->table("user");
+        $user
+            ->addColumn("id", "integer", ["limit" => 11, "null" => false])
+            ->addColumn("name", "string", ["limit" => 255, "null" => false])
+            ->addColumn("state", "integer", ["default" => 0])
+            ->addColumn("order", "integer", ["default" => 512])
+            ->addTimestamps()
+            ->addIndex(["uid"], ["unique" => true, "name" => "uid_index"]);
+        $user->create();
         $todos = $this->table("todos");
         $todos
             ->addColumn("uid", "string", ["limit" => 16, "null" => false])
